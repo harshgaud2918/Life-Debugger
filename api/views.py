@@ -8,6 +8,9 @@ from rest_framework.response import Response
 @api_view(['GET'])
 def overview(request):
     hg = {
-        'hg':'mercury'
+        'problem_id':'69',
+        'description':'This is test problem',
+        'location':'Indore'
+
     }
     return Response(hg)
