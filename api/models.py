@@ -12,3 +12,8 @@ class User(AbstractUser):
         user.set_password(self.password)
         user.save()
         return user
+
+class Problem(models.Model):
+    problem_id = models.IntegerField(primary_key=True)
+    description = models.TextField(null=False,blank=False)
+    
