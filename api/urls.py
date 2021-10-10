@@ -1,7 +1,7 @@
 from django.urls import path
 from django.urls.resolvers import URLPattern
-from . import views 
+from . import views
 
 urlpatterns = [
-    path('',views.overview,name ="overview"),
+    path("problems", views.api_problem),
 ]
