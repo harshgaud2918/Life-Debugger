@@ -12,7 +12,7 @@ class User(AbstractUser):
 class Problem(models.Model):
     description = models.TextField(null=True, blank=False)
     category = models.CharField(max_length=50, null=True, blank=True)
-    location = models.JSONField(null=True, blank=False)
+    location = models.JSONField(null=True, blank=False,default=dict)
     upvote_count = models.IntegerField(null=False, blank=True, default=0)
     downvote_count = models.IntegerField(null=False, blank=True, default=0)
     severity = models.IntegerField(null=False, blank=True, default=0)
