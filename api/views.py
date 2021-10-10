@@ -11,10 +11,12 @@ from .serializers import *
 
 @api_view(["GET", "POST"])
 def api_problem(request):
+    # View Problem
     if request.method == "GET":
         problems = Problem.objects.all()
         problems = ProblemSerializer(problems, many=True).data
         return Response(problems)
+    # Create Problem
     else:
         res = {}
         res["description"] = request.POST["description"]
