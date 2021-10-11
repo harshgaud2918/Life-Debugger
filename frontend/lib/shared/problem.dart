@@ -46,6 +46,7 @@ class _ProblemState extends State<Problem> {
                   Text(widget.prob.location!.state+'/'+widget.prob.location!.city,style: TextStyle(fontSize: 15),),
                   SizedBox(height: 4,),
                   Divider(thickness: 4,),
+                  Center(child: Image.network(widget.prob.url!,height: 150,)),
                   SizedBox(height: 4,),
                   Text(widget.prob.summary,style: TextStyle(fontSize: 25),)
                 ],

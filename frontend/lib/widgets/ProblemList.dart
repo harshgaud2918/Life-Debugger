@@ -17,14 +17,17 @@ class _ProblemListState extends State<ProblemList> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Container(
-          child: ListView.builder(
-            itemCount: widget.list.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder:(BuildContext context, int index){
-                ProblemObj curr=widget.list[index];
-                return Problem(prob: curr,mod: widget.mod,upVoted: widget.upVoted,downVoted: widget.downVoted,);
-            }
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: ListView.builder(
+              itemCount: widget.list.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder:(BuildContext context, int index){
+                  ProblemObj curr=widget.list[index];
+                  return Problem(prob: curr,mod: widget.mod,upVoted: widget.upVoted,downVoted: widget.downVoted,);
+              }
+            ),
           ),
         ));
   }

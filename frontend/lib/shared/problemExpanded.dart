@@ -38,7 +38,6 @@ class _ProblemExpandedState extends State<ProblemExpanded> {
                 child: ListView(
                   children: [
                     if(widget.selected.url!=null)Image.network(widget.selected.url!),
-                    Text("Posted by: "+widget.selected.userId.toString(),style: TextStyle(fontSize: 10),),
                     SizedBox(height: 10,),
                     Text(widget.selected.description,style: TextStyle(fontSize: 25),),
                   ],

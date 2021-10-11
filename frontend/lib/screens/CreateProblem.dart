@@ -22,16 +22,16 @@ class _CreateProblemState extends State<CreateProblem> {
   int severity=6;
   String summary='';
   bool loading=false;
-  String? url="https://drive.google.com/uc?export=view&id=1SsNVRNYDriv-NCXD0YnLRUlSFJynRcWi";
+  String? url;
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     return loading?Loading():Scaffold(
       appBar: AppBar(
-        title: Text("Raise new Problem at current location"),
+        title: Text("Raise new Problem"),
       ),
       body: ListView(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(20.0),
         children: [
           Form(
             key: _formKey,
@@ -48,7 +48,7 @@ class _CreateProblemState extends State<CreateProblem> {
                       }
                     },
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 5,),
                   TextFormField(
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
@@ -61,10 +61,7 @@ class _CreateProblemState extends State<CreateProblem> {
                       }
                     },
                   ),
-                  SizedBox(height: 10,),
-                  Text("Current Location will be fetched and used"),
-                  Text("Current Location is : "+widget.loc.state+"/"+widget.loc.city),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 20,),
                   TextFormField(
                     decoration: textInputDecoration.copyWith(hintText: 'Severity on a scale of 1-10'),
                     validator: (value){
@@ -80,18 +77,22 @@ class _CreateProblemState extends State<CreateProblem> {
                       }
                     },
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 20,),
                   TextFormField(
                     decoration: textInputDecoration.copyWith(hintText: 'Image Google Drive link'),
-                    maxLength: 30,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
+                        url="https://i1.wp.com/leanprojectplaybook.com/wp-content/uploads/2017/07/Problem-Solution-Fit-64922822_xxl-Puzzle-Piece-e1499237044963.jpg?resize=1030%2C438";
                       }else{
                         url=createImageURL(value);
                       }
                     },
                   ),
+                  SizedBox(height: 15,),
+                  Text("Current Location will be fetched and used",style: TextStyle(fontSize: 15),),
                   SizedBox(height: 10,),
+                  Text("Current Location is : "+widget.loc.state+"/"+widget.loc.city,style: TextStyle(fontSize: 15),),
+                  SizedBox(height: 15,),
                   ElevatedButton(
                     child: Text(
                       'Submit Problem',
@@ -105,14 +106,25 @@ class _CreateProblemState extends State<CreateProblem> {
                         setState(() {
                           loading=true;
                         });
-                        ProblemObj created=ProblemObj(problemId: 100, summary: summary, description: description,severity: 0, valid: 0, invalid: 0, location: widget.loc, userId: widget.current.userId,url: url);
-                        //String resp = await createProblem(created);
-                        widget.list.add(created);
-                        //print(resp);
-                        setState(() {
-                          loading=false;
-                          Navigator.pop(context);
-                        });
+                        ProblemObj created=ProblemObj(problemId: 100, summary: summary, description: description,severity: severity, valid: 0, invalid: 0, location: widget.loc, userId: widget.current.userId,url: url);
+                        String resp = await createProblem(created);
+                        print(resp);
+                        if(resp!="0") {
+                          widget.list.add(created);
+                          setState(() {
+                            Navigator.pop(context);
+                          });
+                        }else if(resp=="0"){
+                          setState(() {
+                            loading=false;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.red,
+                                content: Text("Couldnt create problem"),
+                              ),
+                            );
+                          });
+                        }
                       }
                     },
                   ),

@@ -32,11 +32,11 @@ class _SignInState extends State<SignIn> {
           TextButton.icon(
             icon: Icon(
               Icons.person,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).primaryColor,
             ),
             label: Text('Register',
               style: TextStyle(
-                  color: Theme.of(context).accentColor
+                  color: Theme.of(context).primaryColor
               ),),
             onPressed: (){
               widget.toggleView();
@@ -84,7 +84,7 @@ class _SignInState extends State<SignIn> {
                     setState(() {
                       loading = true;
                     });
-                    User nw=User(userId: 10, name: "BigBoi", email: email, phoneNumber: "1289371928", password: password,mod: true,upVoteList: [],downVoteList: []);
+                    User nw=User(userId: 5, name: "BigBoi", email: email, phoneNumber: "1289371928", password: password,mod: true,upVoteList: [],downVoteList: []);
                     setState(() {
                       loading=false;
                       Navigator.push(

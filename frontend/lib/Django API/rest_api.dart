@@ -6,19 +6,6 @@ import 'package:life_debugger/data/User.dart';
 import 'package:life_debugger/data/album.dart';
 
 
-
-
-
-Future<Album> fetchAlbum() async {
-  final response = await http
-      .get(Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/1'));
-  if (response.statusCode == 200) {
-    return Album.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load album');
-  }
-}
-
 Future<LocationData?> fetchLocation() async {
   final response = await http
       .get(Uri.parse('https://freegeoip.app/json/'));
@@ -85,30 +72,31 @@ List<ProblemObj> getProblemList(Map<String, dynamic> json){
 }
 
 Future<String> createProblem(ProblemObj prob) async {
-  final dynamic response = await http.post(
-    Uri.parse("http://:8000/api/problems"),
+    String status="0";
+    await http.post(
+    Uri.parse("http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/problems"),
     headers: <String, String>{
       'Content-Type': 'application/json',
     },
-    body: jsonEncode(<String, dynamic>{
-      //'Problem_ID':prob.problemId,
-      //'name': prob.name,
-      'description': prob.description,
-      //'valid': prob.valid,
-      //'invalid': prob.invalid,
-      'location':{
-        "City": "Indore",
-        "State": "MP"
+    body: jsonEncode(<String,dynamic>{
+      "description": prob.description,
+      "category": "Disaster",
+      "location": {
+        "City": prob.location!.city.toString(),
+        "State": prob.location!.state.toString()
       },
-      //'userID':prob.userId,
+      "upvote_count": prob.valid,
+      "downvote_count": prob.invalid,
+      "severity": prob.severity,
+      "picture_url": prob.url,
+      "user": prob.userId
     }),
-  );
-
-  if (response.statusCode == 201) {
-    return createProbStatus(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to create prob.');
-  }
+  ).then((dynamic res) {
+      if (res.statusCode==200) {
+        status = createProbStatus(jsonDecode(res.body));
+      }
+  });
+    return status;
 }
 
 String createProbStatus(Map<String, dynamic> json) {
