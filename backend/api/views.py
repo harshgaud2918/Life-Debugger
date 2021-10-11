@@ -65,9 +65,9 @@ def api_problem_delete(request,id):
     operation= problem.delete()
     res={}
     if operation:
-        res["message"]:"delete successful"
+        res["message"]="delete successful"
     else:
-        res["message"]:"Cound not delete your problem"
+        res["message"]="Cound not delete your problem"
     
     return Response(res)
 
