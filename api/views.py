@@ -35,3 +35,39 @@ def api_problem(request):
         res = serializer.errors
         res["message"] = "There was a problem while creating the problems"
         return Response(res, status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["PUT"])
+def api_problem_update(request,id):
+
+    problem = Problem.objects.get(id=id)
+    
+    res={}
+    
+    serializer=ProblemSerializer(problem,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        res["message"]="Your problem is updated"
+        return Response(res)
+    
+    res=serializer.errors
+    res["message"]="There was a problem while updating your problem"
+    return Response(res, status.HTTP_400_BAD_REQUEST)
+
+    
+@api_view(["DELETE"])
+def api_problem_delete(request,id):
+    try:
+        problem = Problem.objects.get(id=id)
+    except Problem.DoesNotExist:
+        return Response(status.HTTP_404_NOT_FOUND)
+    
+    operation= problem.delete()
+    res={}
+    if operation:
+        res["message"]:"delete successful"
+    else:
+        res["message"]:"Cound not delete your problem"
+    
+    return Response(res)
+
