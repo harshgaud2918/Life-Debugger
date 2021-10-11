@@ -11,6 +11,7 @@ from .serializers import *
 
 @api_view(["GET", "POST"])
 def api_problem(request):
+    print("hii")
     # View Problem
     if request.method == "GET":
         problems = Problem.objects.all()
@@ -18,14 +19,15 @@ def api_problem(request):
         return Response(problems)
     # Create Problem
     else:
+        print(request.data)
         res = {}
-        res["description"] = request.POST["description"]
-        res["category"] = request.POST["category"]
-        res["location"] = request.POST["location"]
-        res["upvote_count"] = request.POST["upvote_count"]
-        res["downvote_count"] = request.POST["downvote_count"]
-        res["severity"] = request.POST["severity"]
-        res["user"] = request.POST["user"]
+        res["description"] = request.data["description"]
+        res["category"] = request.data["category"]
+        res["location"] = request.data["location"]
+        res["upvote_count"] = request.data["upvote_count"]
+        res["downvote_count"] = request.data["downvote_count"]
+        res["severity"] = request.data["severity"]
+        res["user"] = request.data["user"]
         serializer = ProblemSerializer(data=res)
         if serializer.is_valid():
             serializer.save()
