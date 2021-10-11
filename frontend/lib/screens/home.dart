@@ -11,16 +11,19 @@ import 'package:life_debugger/widgets/ProblemList.dart';
 import 'package:life_debugger/data/dummy.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key,required this.title,required this.currentUser}) : super(key: key);
+  HomeScreen({Key? key,required this.title,required this.currentUser,required this.pList}) : super(key: key);
   final title;
   User currentUser;
-  List<ProblemObj> pList = iniProb();
+  List<ProblemObj> pList;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   bool loading=false;
+  void iniProblemList()async{
+    widget.pList=(await getProblemsList('all'))!;
+  }
   @override
   Widget build(BuildContext context) {
     return loading?Loading():Scaffold(
@@ -74,14 +77,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                   LocationData? loc=await fetchLocation();
                   if(loc!=null){
-                  setState(()  {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => LocSettings(list: widget.pList,loc: loc,)),
                     ).then((value){setState(() {
+                      loading=false;
+                      if(value!=null)
+                        widget.pList=value;
                     });});
-                    loading=false;
-                  });}else{
+
+                  }else{
                     setState(() {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

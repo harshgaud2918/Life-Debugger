@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:life_debugger/Django%20API/rest_api.dart';
+import 'package:life_debugger/data/ProblemObj.dart';
 import 'package:life_debugger/data/User.dart';
 import 'package:life_debugger/screens/home.dart';
 import 'package:life_debugger/shared/constant.dart';
@@ -120,13 +122,19 @@ class _RegisterState extends State<Register> {
                       setState(() {
                         loading = true;
                       });
+                      List<ProblemObj>? list= await getProblemsList("all");
                       User nw=User(userId: 10, name: name, email: email, phoneNumber: phoneNumber, password: password,mod: true,upVoteList: [],downVoteList: []);
                       setState(() {
                         loading=false;
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen(title: "Life Debugger",currentUser: nw,)),
-                        );
+                        if(list!=null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>
+                                HomeScreen(title: "Life Debugger",
+                                  currentUser: nw,
+                                  pList: list,)),
+                          );
+                        }
                       });
                     }
                   },

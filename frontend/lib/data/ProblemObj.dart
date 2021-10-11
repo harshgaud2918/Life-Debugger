@@ -29,4 +29,17 @@ class ProblemObj{
     this.tags,
     this.url
   });
+  factory ProblemObj.fromJson(Map<String, dynamic> json) {
+    return ProblemObj(
+      problemId: json['id'],
+      summary: " ",
+      description: json['description'],
+      location: LocationData(state: "9",city: "0"),//LocationData(city: json['location']['city'],state: json['location']['state']),
+      valid: json['upvote_count'],
+      invalid: json['downvote_count'],
+      userId: json['user'],
+      severity: json['severity'],
+      url: json['picture_url'],
+    );
+  }
 }

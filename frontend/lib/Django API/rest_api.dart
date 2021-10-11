@@ -50,25 +50,28 @@ String createStatus(Map<String, dynamic> json) {
 }
 
 Future<List<ProblemObj>?> getProblemsList(String location) async {
-  final response = await http.post(
-    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/'),
+  List<ProblemObj>? fin;
+  await http.get(
+    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/problems'),
     headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
     },
-    body: jsonEncode(<String, String>{
-      'location': location,
-    }),
-  );
-
-  if (response.statusCode == 201) {
-    return getProblemList(jsonDecode(response.body));
-  } else {
-    return null;
-  }
+  ).then((dynamic res) {
+    //print(res.body);
+    if (res.statusCode==200) {
+     fin = getProblemList(jsonDecode(res.body));
+    }
+  });
+  return fin;
 }
 
-List<ProblemObj> getProblemList(Map<String, dynamic> json){
-  return json["list"];
+List<ProblemObj> getProblemList(dynamic dict){
+  List<ProblemObj> fin=[];
+  for(dynamic i in dict){
+    fin.add(ProblemObj.fromJson(i));
+  }
+  return fin;
+
 }
 
 Future<String> createProblem(ProblemObj prob) async {

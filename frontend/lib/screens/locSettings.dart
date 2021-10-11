@@ -58,9 +58,9 @@ class _locSettingsState extends State<LocSettings> {
                   //var listnew=null;
                   var listnew = await getProblemsList(map[index]!);
                   if(listnew!=null){
-                    widget.list=listnew;
+                    print(listnew.length);
                     setState(() {
-                      Navigator.pop(context);
+                      Navigator.pop(context,listnew);
                     });
                   }else
                   setState(() {

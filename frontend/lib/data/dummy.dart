@@ -10,7 +10,7 @@ String description =
 int maxValid = 100;
 int maxInvalid = 100;
 int locations = 5;
-List<ProblemObj> iniProb() {
+List<ProblemObj> iniProb(List<ProblemObj> pList) {
   List<ProblemObj> probs = [];
   String url="https://img.stickers.cloud/packs/58c037f4-8700-40bb-97ef-b6a6ee0ff398/png/a8efe763-c280-43d3-a03b-3f49bc41ac57.png";
   final random = new Random();
