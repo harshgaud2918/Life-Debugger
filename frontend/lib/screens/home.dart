@@ -44,13 +44,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                   LocationData? loc=await fetchLocation();
                   if(loc!=null){
-                  setState(()  {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => CreateProblem(current: widget.currentUser,list: widget.pList,loc: loc,)),
-                  ).then((value){});
-                  loading=false;
-                  });}
+                  ).then((value){
+                    setState(() {
+                      loading=false;
+                    });
+                  });
+                  }
                   else{
                     setState(() {
                       ScaffoldMessenger.of(context).showSnackBar(

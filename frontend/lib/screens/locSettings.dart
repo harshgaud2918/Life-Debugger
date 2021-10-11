@@ -27,18 +27,28 @@ class _locSettingsState extends State<LocSettings> {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("Current Location"),
               Text(widget.loc.state + '/'+widget.loc.city,style: TextStyle(fontSize: 20),),
               SizedBox(height: 20,),
-              Text("Get Problems of:"),
+              Text("Get Problems of:",style: TextStyle(fontSize: 30),),
               SizedBox(height: 10,),
               ToggleButtons(
+                direction: Axis.vertical,
                 children: <Widget>[
-                  Text("All"),
-                  Text("In "+widget.loc.state),
-                  Text("In "+widget.loc.city),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("All"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("In "+widget.loc.state),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("In "+widget.loc.city),
+                  ),
                 ],
                 onPressed: (int index) async{
                   var map={0:'all' , 1:widget.loc.state,2:widget.loc.city};

@@ -86,7 +86,7 @@ List<ProblemObj> getProblemList(Map<String, dynamic> json){
 
 Future<String> createProblem(ProblemObj prob) async {
   final dynamic response = await http.post(
-    Uri.parse("http:///api/problems"),
+    Uri.parse("http://:8000/api/problems"),
     headers: <String, String>{
       'Content-Type': 'application/json',
     },
