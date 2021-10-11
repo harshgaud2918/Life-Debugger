@@ -101,10 +101,10 @@ class _CreateProblemState extends State<CreateProblem> {
                     ),
                     //TODO: Proper Problem submission
                     onPressed: () async {
-                      setState(() {
-                        loading = true;
-                      });
                       if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          loading=true;
+                        });
                         ProblemObj created=ProblemObj(problemId: 100, summary: summary, description: description,severity: 0, valid: 0, invalid: 0, location: widget.loc, userId: widget.current.userId,url: url);
                         //String resp = await createProblem(created);
                         widget.list.add(created);
@@ -112,10 +112,6 @@ class _CreateProblemState extends State<CreateProblem> {
                         setState(() {
                           loading=false;
                           Navigator.pop(context);
-                        });
-                      }else{
-                        setState(() {
-                          loading=false;
                         });
                       }
                     },

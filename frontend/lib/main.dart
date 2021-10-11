@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
           primaryColor: Colors.black,
           accentColor: Colors.grey[800]),
-      //home: Authenticate(),
-      home: HomeScreen(currentUser: User(userId: 10, name: "BigBoi", email: 'xyz@bjp.ac.in', phoneNumber: "1289371928", password: 'password',mod: true,upVoteList: [],downVoteList: []), title: 'LifeDebugger',),
+      home: Authenticate(),
+      //home: HomeScreen(currentUser: User(userId: 10, name: "BigBoi", email: 'xyz@bjp.ac.in', phoneNumber: "1289371928", password: 'password',mod: true,upVoteList: [],downVoteList: []), title: 'LifeDebugger',),
     );
   }
 }
