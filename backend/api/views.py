@@ -71,3 +71,12 @@ def api_problem_delete(request,id):
     
     return Response(res)
 
+@api_view(["GET"])
+def api_location_problem(request):
+    state=request.GET.get('state')
+    city=request.GET.get('city')
+    res={}
+    print(state,city)
+    problems=Problem.objects.filter(location__state=state, location__city=city)
+    data=ProblemSerializer(problems, many=True).data
+    return Response(data)
