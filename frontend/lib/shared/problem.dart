@@ -21,7 +21,10 @@ class _ProblemState extends State<Problem> {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ProblemExpanded(selected: widget.prob,mod: widget.mod,upVoted: widget.upVoted,downVoted: widget.downVoted,)),
-        );
+        ).then((value){
+          setState(() {
+          });
+        });
       },
       child: Container(
         decoration: BoxDecoration(

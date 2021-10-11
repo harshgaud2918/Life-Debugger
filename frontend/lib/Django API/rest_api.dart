@@ -85,18 +85,21 @@ List<ProblemObj> getProblemList(Map<String, dynamic> json){
 }
 
 Future<String> createProblem(ProblemObj prob) async {
-  final response = await http.post(
-    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/'),
+  final dynamic response = await http.post(
+    Uri.parse("http:///api/problems"),
     headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
     },
     body: jsonEncode(<String, dynamic>{
-      'Problem_ID':prob.problemId,
+      //'Problem_ID':prob.problemId,
       //'name': prob.name,
       'description': prob.description,
       //'valid': prob.valid,
       //'invalid': prob.invalid,
-      //'location':prob.location,
+      'location':{
+        "City": "Indore",
+        "State": "MP"
+      },
       //'userID':prob.userId,
     }),
   );
@@ -109,5 +112,5 @@ Future<String> createProblem(ProblemObj prob) async {
 }
 
 String createProbStatus(Map<String, dynamic> json) {
-  return json["status"];
+  return json["message"];
 }

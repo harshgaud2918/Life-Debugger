@@ -106,8 +106,9 @@ class _CreateProblemState extends State<CreateProblem> {
                       });
                       if (_formKey.currentState!.validate()) {
                         ProblemObj created=ProblemObj(problemId: 100, summary: summary, description: description,severity: 0, valid: 1, invalid: 0, location: widget.loc, userId: widget.current.userId,url: url);
-                        widget.list.add(created);
                         //String resp = await createProblem(created);
+                        widget.list.add(created);
+                        //print(resp);
                         setState(() {
                           loading=false;
                           Navigator.pop(context);
