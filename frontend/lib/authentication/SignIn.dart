@@ -69,7 +69,7 @@ class _SignInState extends State<SignIn> {
                   password=val;
                 },
                 obscureText: true,
-                validator: (val)=>val!.length<=6?'Enter a password 6+ char long':null,
+                validator: (val)=>val!.length<=3?'Enter a password 3+ char long':null,
               ),
               SizedBox(height: 20,),
               RaisedButton(
@@ -86,14 +86,25 @@ class _SignInState extends State<SignIn> {
                     setState(() {
                       loading = true;
                     });
-                    User nw=User(userId: 5, name: "BigBoi", email: email, phoneNumber: "1289371928", password: password,mod: true,upVoteList: [],downVoteList: []);
+                    User? curr=await fetchUser(email,password);
                     List<ProblemObj>? list= await getProblemsList("all");
                     setState(() {
                       loading=false;
-                      if(list!=null)
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen(title: "Life Debugger", currentUser: nw,pList: list,)),
+                      if(list!=null && curr!=null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>
+                              HomeScreen(title: "Life Debugger",
+                                currentUser: curr,
+                                pList: list,)),
+                        );
+                      }
+                      else
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text("Some Error occurred"),
+                        ),
                       );
                     });
                   }

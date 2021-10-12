@@ -16,34 +16,44 @@ Future<LocationData?> fetchLocation() async {
   }
 }
 
-Future<User> fetchUser() async {
-  final response = await http
-      .get(Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/'));
-  if (response.statusCode == 200) {
-    return User.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load User');
-  }
+Future<User?> fetchUser(String username, String password) async {
+  User? fetched;
+  await http.post(
+    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/login'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'username': username,
+      'password': password
+    }),
+  ).then((dynamic response){
+    if(response.statusCode==200){
+      fetched=User.fromJson(jsonDecode(response.body));
+    }
+  });
+  return fetched;
 }
 
 
 Future<String> createUser(User newUser) async {
-  final response = await http.post(
-    //Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/'),
-    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/admin/api/user/add/'),
+  String resp="failed";
+    await http.post(
+    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/createuser'),
     headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
     },
-    body: jsonEncode(<String, User>{
-      'user': newUser,
+    body: jsonEncode(<String,dynamic>{
+      "password": newUser.password,
+      "email": newUser.email,
+      "name": newUser.name,
     }),
-  );
-
-  if (response.statusCode == 201) {
-    return createStatus(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to create album.');
-  }
+  ).then((dynamic response){
+      if(response.statusCode==200){
+        resp="ok";
+      }
+  });
+  return resp;
 }
 
 String createStatus(Map<String, dynamic> json) {

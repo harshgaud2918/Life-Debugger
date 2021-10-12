@@ -123,16 +123,25 @@ class _RegisterState extends State<Register> {
                         loading = true;
                       });
                       List<ProblemObj>? list= await getProblemsList("all");
-                      User nw=User(userId: 5, name: name, email: email, phoneNumber: phoneNumber, password: password,mod: true,upVoteList: [],downVoteList: []);
+                      User nw=User(userId: 5, name: name, email: email, phoneNumber: phoneNumber,password: password,mod: true,upVoteList: [],downVoteList: []);
+                      String resp=await createUser(nw);
                       setState(() {
                         loading=false;
-                        if(list!=null) {
+                        if(list!=null && resp=="ok") {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) =>
                                 HomeScreen(title: "Life Debugger",
                                   currentUser: nw,
                                   pList: list,)),
+                          );
+                        }
+                        else{
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text("Some Error occurred"),
+                            ),
                           );
                         }
                       });
