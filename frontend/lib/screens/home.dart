@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: Column(
           children: [
-            ProblemList(list: widget.pList, mod: widget.currentUser.mod,upVoted: widget.currentUser.upVoteList,downVoted: widget.currentUser.downVoteList,),
+            ProblemList(list: List.from(widget.pList.reversed), mod: widget.currentUser.mod,upVoted: widget.currentUser.upVoteList,downVoted: widget.currentUser.downVoteList,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

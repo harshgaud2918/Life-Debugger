@@ -37,7 +37,7 @@ class _ProblemExpandedState extends State<ProblemExpanded> {
               child: Container(
                 child: ListView(
                   children: [
-                    if(widget.selected.url!=null)Image.network(widget.selected.url!),
+                    if(widget.selected.url!=null)Image.network(widget.selected.url),
                     SizedBox(height: 10,),
                     Text(widget.selected.description,style: TextStyle(fontSize: 25),),
                   ],
