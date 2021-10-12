@@ -36,11 +36,11 @@ class _RegisterState extends State<Register> {
           TextButton.icon(
             icon: Icon(
               Icons.person,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).iconTheme.color,
             ),
             label: Text('Sign In',
               style: TextStyle(
-                  color: Theme.of(context).primaryColor
+                  color: Theme.of(context).iconTheme.color
               ),),
             onPressed: () {
               widget.toggleView();
