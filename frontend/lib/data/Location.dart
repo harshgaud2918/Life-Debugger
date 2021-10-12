@@ -11,5 +11,12 @@ class LocationData{
       locDat: json,
     );
   }
+  factory LocationData.fromAPIJson(Map<String, dynamic> json) {
+    return LocationData(
+      state: json["State"],
+      city: json["City"],
+      locDat: json,
+    );
+  }
 
 }

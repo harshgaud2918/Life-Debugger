@@ -29,7 +29,8 @@ Future<User> fetchUser() async {
 
 Future<String> createUser(User newUser) async {
   final response = await http.post(
-    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/'),
+    //Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/'),
+    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/admin/api/user/add/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -56,8 +57,8 @@ Future<List<ProblemObj>?> getProblemsList(String location) async {
     headers: <String, String>{
       'Content-Type': 'application/json',
     },
+
   ).then((dynamic res) {
-    //print(res.body);
     if (res.statusCode==200) {
      fin = getProblemList(jsonDecode(res.body));
     }
@@ -73,7 +74,34 @@ List<ProblemObj> getProblemList(dynamic dict){
   return fin;
 
 }
-
+void updateProblem(ProblemObj prob) async{
+  bool resp=false;
+  await http.put(
+    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/update/'+prob.problemId.toString()),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode(<String,dynamic>{
+      "description": prob.description,
+      "category": "Disaster",
+      "location": {
+        "City": prob.location!.city.toString(),
+        "State": prob.location!.state.toString()
+      },
+      "upvote_count": prob.valid,
+      "downvote_count": prob.invalid,
+      "severity": prob.severity,
+      "picture_url": prob.url,
+      "user": prob.userId
+    }
+    ),
+  ).then((dynamic response) {
+    if(response.statusCode==200){
+      resp=true;
+    }
+  });
+  //print(resp);
+}
 Future<String> createProblem(ProblemObj prob) async {
     String status="0";
     await http.post(

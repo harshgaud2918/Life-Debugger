@@ -779,8 +779,8 @@ io.flutter.embedding.android.FlutterImageView:
     public void <init>(android.content.Context,android.util.AttributeSet)
 io.flutter.embedding.engine.plugins.contentprovider.ContentProviderAware:
     public abstract void onAttachedToContentProvider(io.flutter.embedding.engine.plugins.contentprovider.ContentProviderPluginBinding)
-androidx.annotation.RequiresPermission$Read
 com.example.LifeDebugger.life_debugger.R$drawable
+androidx.annotation.RequiresPermission$Read
 androidx.versionedparcelable.CustomVersionedParcelable:
     public void onPreParceling(boolean)
     public void onPostParceling()
@@ -1265,8 +1265,8 @@ kotlin.collections.MapsKt
 androidx.core.view.NestedScrollingChild3
 io.flutter.BuildConfig
 androidx.core.content.res.TypedArrayUtils
-kotlin.NumbersKt__BigDecimalsKt
 kotlin.collections.ArraysKt___ArraysKt
+kotlin.NumbersKt__BigDecimalsKt
 kotlin.UInt$Companion
 kotlin.jvm.functions.Function3
 androidx.fragment.app.FragmentContainer
@@ -1967,8 +1967,8 @@ androidx.core.content.res.ConfigurationHelper
 kotlin.internal.OnlyInputTypes
 kotlin.collections.ArraysKt___ArraysKt$asIterable$$inlined$Iterable$4
 androidx.core.view.accessibility.AccessibilityViewCommand$ScrollToPositionArguments
-kotlin.coroutines.experimental.CombinedContext$toString$1
 kotlin.coroutines.experimental.SafeContinuation
+kotlin.coroutines.experimental.CombinedContext$toString$1
 kotlin.jvm.internal.EnumCompanionObject
 androidx.core.app.TaskStackBuilder$SupportParentable
 androidx.viewpager.widget.ViewPager
@@ -2586,8 +2586,8 @@ androidx.customview.widget.ExploreByTouchHelper$1
 androidx.core.graphics.PathSegment
 androidx.core.app.SharedElementCallback
 androidx.core.graphics.drawable.IconCompat$IconType
-kotlin.UnsignedKt
 kotlin.io.AccessDeniedException
+kotlin.UnsignedKt
 android.support.v4.os.IResultReceiver
 androidx.core.graphics.drawable.RoundedBitmapDrawable
 kotlin.SafePublicationLazyImpl

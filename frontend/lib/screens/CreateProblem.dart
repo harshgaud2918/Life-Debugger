@@ -22,7 +22,7 @@ class _CreateProblemState extends State<CreateProblem> {
   int severity=6;
   String summary='';
   bool loading=false;
-  String? url;
+  String url="https://i1.wp.com/leanprojectplaybook.com/wp-content/uploads/2017/07/Problem-Solution-Fit-64922822_xxl-Puzzle-Piece-e1499237044963.jpg?resize=1030%2C438";
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();

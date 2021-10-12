@@ -34,11 +34,11 @@ class _SignInState extends State<SignIn> {
           TextButton.icon(
             icon: Icon(
               Icons.person,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).iconTheme.color,
             ),
             label: Text('Register',
               style: TextStyle(
-                  color: Theme.of(context).primaryColor
+                  color: Theme.of(context).iconTheme.color
               ),),
             onPressed: (){
               widget.toggleView();

@@ -36,11 +36,11 @@ class _RegisterState extends State<Register> {
           TextButton.icon(
             icon: Icon(
               Icons.person,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).iconTheme.color,
             ),
             label: Text('Sign In',
               style: TextStyle(
-                  color: Theme.of(context).primaryColor
+                  color: Theme.of(context).iconTheme.color
               ),),
             onPressed: () {
               widget.toggleView();
@@ -123,7 +123,7 @@ class _RegisterState extends State<Register> {
                         loading = true;
                       });
                       List<ProblemObj>? list= await getProblemsList("all");
-                      User nw=User(userId: 10, name: name, email: email, phoneNumber: phoneNumber, password: password,mod: true,upVoteList: [],downVoteList: []);
+                      User nw=User(userId: 5, name: name, email: email, phoneNumber: phoneNumber, password: password,mod: true,upVoteList: [],downVoteList: []);
                       setState(() {
                         loading=false;
                         if(list!=null) {

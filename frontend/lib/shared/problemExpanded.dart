@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:life_debugger/Django%20API/rest_api.dart';
 import 'package:life_debugger/data/ProblemObj.dart';
 import 'package:life_debugger/data/User.dart';
 
@@ -37,7 +38,7 @@ class _ProblemExpandedState extends State<ProblemExpanded> {
               child: Container(
                 child: ListView(
                   children: [
-                    if(widget.selected.url!=null)Image.network(widget.selected.url!),
+                    if(widget.selected.url!=null)Image.network(widget.selected.url),
                     SizedBox(height: 10,),
                     Text(widget.selected.description,style: TextStyle(fontSize: 25),),
                   ],
@@ -64,6 +65,7 @@ class _ProblemExpandedState extends State<ProblemExpanded> {
                     up=false;
                   }
                   });
+                  updateProblem(widget.selected);
                 } , icon: Icon(Icons.add),color: up?Colors.green:Colors.white,),
                 Text(widget.selected.valid.toString(),style: TextStyle(fontSize: 10),),
                 IconButton(onPressed: (){
@@ -83,6 +85,7 @@ class _ProblemExpandedState extends State<ProblemExpanded> {
                       down=false;
                     }
                   });
+                  updateProblem(widget.selected);
                 }, icon: Icon(Icons.remove),color: down?Colors.red:Colors.white,),
                 Text(widget.selected.invalid.toString(),style: TextStyle(fontSize: 10),),
                 if(widget.mod)IconButton(onPressed: (){}, icon: Icon(Icons.delete,color: Colors.red,))

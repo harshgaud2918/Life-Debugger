@@ -18,9 +18,9 @@ const razer_bg = BoxDecoration(
     )
 );
 
-String? createImageURL(String ori){
+String createImageURL(String ori){
   List sub=ori.split("/");
   if(sub.length<=2)
-    return null;
+    return "https://i1.wp.com/leanprojectplaybook.com/wp-content/uploads/2017/07/Problem-Solution-Fit-64922822_xxl-Puzzle-Piece-e1499237044963.jpg?resize=1030%2C438";
   return "https://drive.google.com/uc?export=view&id="+sub[sub.length-2];
 }

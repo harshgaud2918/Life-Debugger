@@ -21,9 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool loading=false;
-  void iniProblemList()async{
-    widget.pList=(await getProblemsList('all'))!;
-  }
+
   @override
   Widget build(BuildContext context) {
     return loading?Loading():Scaffold(
