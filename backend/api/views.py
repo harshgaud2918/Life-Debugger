@@ -19,7 +19,6 @@ def api_problem(request):
         return Response(problems)
     # Create Problem
     else:
-        print(request.data)
         res = {}
         res["description"] = request.data["description"]
         res["category"] = request.data["category"]
@@ -33,6 +32,7 @@ def api_problem(request):
             serializer.save()
             res = serializer.data
             res["message"] = "Your Problem is created. You will be notified soon."
+            print(res)
             return Response(res)
         res = serializer.errors
         res["message"] = "There was a problem while creating the problems"
@@ -41,11 +41,8 @@ def api_problem(request):
 
 @api_view(["PUT"])
 def api_problem_update(request,id):
-
-    problem = Problem.objects.get(id=id)
-    
-    res={}
-    
+    problem = Problem.objects.get(id=id)    
+    res={}    
     serializer=ProblemSerializer(problem,data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -72,4 +69,22 @@ def api_problem_delete(request,id):
         res["message"]="Cound not delete your problem"
     
     return Response(res)
+
+@api_view(["GET"])
+def api_location_problem(request):
+    state=request.GET.get('state')
+    city=request.GET.get('city')
+    res={}
+    print(state,city)
+    if(state and city):
+
+        problems=Problem.objects.filter(location__state=state, location__city=city)
+        data=ProblemSerializer(problems, many=True).data
+    if(state):
+        problems=Problem.objects.filter(location__state=state)
+        data=ProblemSerializer(problems, many=True).data
+    if(city):
+        problems=Problem.objects.filter(location__city=city)
+        data=ProblemSerializer(problems, many=True).data
+    return Response(data)
 
