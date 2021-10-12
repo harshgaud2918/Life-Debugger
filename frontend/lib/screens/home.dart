@@ -21,9 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool loading=false;
-  void iniProblemList()async{
-    widget.pList=(await getProblemsList('all'))!;
-  }
+
   @override
   Widget build(BuildContext context) {
     return loading?Loading():Scaffold(
@@ -35,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: Column(
           children: [
-            ProblemList(list: List.from(widget.pList.reversed), mod: widget.currentUser.mod,upVoted: widget.currentUser.upVoteList,downVoted: widget.currentUser.downVoteList,),
+            ProblemList(list: widget.pList, mod: widget.currentUser.mod,upVoted: widget.currentUser.upVoteList,downVoted: widget.currentUser.downVoteList,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

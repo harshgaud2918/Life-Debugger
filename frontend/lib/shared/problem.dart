@@ -33,34 +33,48 @@ class _ProblemState extends State<Problem> {
 
         ),
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        padding: EdgeInsets.only(left: 10,top: 10,bottom: 10,right: 10),
+        padding: EdgeInsets.all(10),
         child: Row(
+          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Flexible(
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(widget.prob.location!.state+'/'+widget.prob.location!.city,style: TextStyle(fontSize: 15),),
-                  SizedBox(height: 4,),
-                  Divider(thickness: 4,),
-                  Center(child: Image.network(widget.prob.url,height: 150,)),
-                  SizedBox(height: 4,),
-                  Text(widget.prob.summary,style: TextStyle(fontSize: 25),)
-                ],
+              flex: 6,
+              fit: FlexFit.tight,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(widget.prob.description,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 24),),
+                Divider(thickness: 1,color: Colors.grey),
+                Text(widget.prob.location!.city+'/'+widget.prob.location!.state,style: TextStyle(fontSize: 15),),
+
+              ],
           ),
+            ),
+            Flexible(
+              flex: 3,
+              fit: FlexFit.tight,
+              child: Container(
+                  padding:EdgeInsets.all(10),
+                  child: Image.network(widget.prob.url)
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(this.widget.prob.valid.toString(),style: TextStyle(fontSize: 20,color: Colors.green)),
-                SizedBox(height: 10,),
-                Text(this.widget.prob.invalid.toString(),style: TextStyle(fontSize: 20,color: Colors.red)),
-              ],
-            ),
+            Flexible(
+              flex: 1,
+              fit: FlexFit.tight,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(widget.prob.valid.toString(),style: TextStyle(color: Colors.green,fontSize: 24),),
+                  SizedBox(height: 10,),
+                  Text(widget.prob.invalid.toString(),style: TextStyle(color: Colors.red,fontSize: 24),)
+                ],
+              ),
+            )
           ],
         ),
       ),

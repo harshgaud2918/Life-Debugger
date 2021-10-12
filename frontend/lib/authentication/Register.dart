@@ -123,7 +123,7 @@ class _RegisterState extends State<Register> {
                         loading = true;
                       });
                       List<ProblemObj>? list= await getProblemsList("all");
-                      User nw=User(userId: 10, name: name, email: email, phoneNumber: phoneNumber, password: password,mod: true,upVoteList: [],downVoteList: []);
+                      User nw=User(userId: 5, name: name, email: email, phoneNumber: phoneNumber, password: password,mod: true,upVoteList: [],downVoteList: []);
                       setState(() {
                         loading=false;
                         if(list!=null) {
