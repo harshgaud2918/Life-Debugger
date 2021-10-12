@@ -1,9 +1,11 @@
+from django.db.models import manager
 from django.http.response import JsonResponse
 from django.shortcuts import render
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth import authenticate, login, logout
 
 from .models import *
 from .serializers import *
@@ -11,10 +13,10 @@ from .serializers import *
 
 @api_view(["GET", "POST"])
 def api_problem(request):
-    print("hii")
     # View Problem
     if request.method == "GET":
         problems = Problem.objects.all()
+        problems.reverse()
         problems = ProblemSerializer(problems, many=True).data
         return Response(problems)
     # Create Problem
@@ -33,7 +35,6 @@ def api_problem(request):
             serializer.save()
             res = serializer.data
             res["message"] = "Your Problem is created. You will be notified soon."
-            print(res)
             return Response(res)
         res = serializer.errors
         res["message"] = "There was a problem while creating the problems"
@@ -76,7 +77,6 @@ def api_location_problem(request):
     state=request.GET.get('state')
     city=request.GET.get('city')
     res={}
-    print(state,city)
     if(state and city):
         problems=Problem.objects.filter(location__state=state, location__city=city)
         data=ProblemSerializer(problems, many=True).data
@@ -88,3 +88,49 @@ def api_location_problem(request):
         data=ProblemSerializer(problems, many=True).data
     return Response(data)
 
+
+@api_view(["POST"])
+def api_login(request):
+    if request.method == 'POST':
+        username = request.data['username']
+        password = request.data['password']
+        user = authenticate(request, username=username, password=password)
+        res ={}
+        if user is not None:
+            login(request, user)
+            c_user = User.objects.get(username=username)
+            res = UserSerializer(c_user).data
+            return Response(res)            
+
+        else:
+            res["message"] = "User Doesn't Exist"
+            return Response(res, status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def api_all_users(request):
+    users = User.objects.all()
+    res = UserSerializer(users,many=True).data
+    return Response(res)
+
+@api_view(["POST"])
+def api_create_user(request):
+        res = {}
+        res["username"] = request.data["email"]
+        res["password"] = request.data["password"]
+        res["email"] = request.data["email"]
+        res["first_name"] = request.data["name"]
+        res["is_active"] = True
+        res["is_staff"] = True
+        
+        serializer = UserSerializer(data=res)
+        if serializer.is_valid():
+            serializer.save()
+            user = User.objects.get(username=request.data["email"])
+            user.set_password(request.data["password"])
+            user.save()
+            res = UserSerializer(user).data
+            res["message"] = "User created"
+            return Response(res)
+        res = serializer.errors
+        res["message"] = "There was a problem while creating the problems"
+        return Response(res, status.HTTP_400_BAD_REQUEST)
