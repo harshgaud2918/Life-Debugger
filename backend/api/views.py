@@ -27,6 +27,7 @@ def api_problem(request):
         res["downvote_count"] = request.data["downvote_count"]
         res["severity"] = request.data["severity"]
         res["user"] = request.data["user"]
+        res["picture_url"] = request.data["picture_url"]
         serializer = ProblemSerializer(data=res)
         if serializer.is_valid():
             serializer.save()
@@ -77,7 +78,6 @@ def api_location_problem(request):
     res={}
     print(state,city)
     if(state and city):
-
         problems=Problem.objects.filter(location__state=state, location__city=city)
         data=ProblemSerializer(problems, many=True).data
     if(state):
