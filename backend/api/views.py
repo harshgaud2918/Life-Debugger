@@ -1,3 +1,4 @@
+from django.db.models import manager
 from django.http.response import JsonResponse
 from django.shortcuts import render
 
@@ -104,3 +105,32 @@ def api_login(request):
         else:
             res["message"] = "User Doesn't Exist"
             return Response(res, status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def api_all_users(request):
+    users = User.objects.all()
+    res = UserSerializer(users,many=True).data
+    return Response(res)
+
+@api_view(["POST"])
+def api_create_user(request):
+        res = {}
+        res["username"] = request.data["email"]
+        res["password"] = request.data["password"]
+        res["email"] = request.data["email"]
+        res["first_name"] = request.data["name"]
+        res["is_active"] = True
+        res["is_staff"] = True
+        
+        serializer = UserSerializer(data=res)
+        if serializer.is_valid():
+            serializer.save()
+            user = User.objects.get(username=request.data["email"])
+            user.set_password(request.data["password"])
+            user.save()
+            res = UserSerializer(user).data
+            res["message"] = "User created"
+            return Response(res)
+        res = serializer.errors
+        res["message"] = "There was a problem while creating the problems"
+        return Response(res, status.HTTP_400_BAD_REQUEST)
