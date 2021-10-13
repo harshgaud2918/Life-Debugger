@@ -26,14 +26,15 @@ class _ProblemExpandedState extends State<ProblemExpanded> {
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.only(left: 20,top: 15,right: 20,bottom: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
             Text(widget.selected.summary,style: TextStyle(fontSize: 25),),
-            SizedBox(height: 5,),
+            SizedBox(height: 10,),
             Text(widget.selected.location!.state+'/'+widget.selected.location!.city,style: TextStyle(fontSize: 15),),
+            SizedBox(height: 10,),
             Flexible(
               child: Container(
                 child: ListView(
@@ -49,45 +50,53 @@ class _ProblemExpandedState extends State<ProblemExpanded> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(onPressed: (){
+                  int changeUp=0,changeDown=0;
                   setState(() {
                   if(!up){
                     widget.selected.valid+=1;
+                    changeUp=1;
                     widget.upVoted.add(widget.selected.problemId);
                     up=true;
                     if(down){
                       widget.selected.invalid-=1;
+                      changeDown=-1;
                       widget.downVoted.remove(widget.selected.problemId);
                       down=false;
                     }
                   }else{
+                    changeUp=-1;
                     widget.selected.valid-=1;
                     widget.upVoted.remove(widget.selected.problemId);
                     up=false;
                   }
                   });
-                  updateProblem(widget.selected);
-                } , icon: Icon(Icons.add),color: up?Colors.green:Colors.white,),
-                Text(widget.selected.valid.toString(),style: TextStyle(fontSize: 10),),
+                  updateProblem(widget.selected,changeUp,changeDown);
+                } , icon: Icon(Icons.add),iconSize: 40,color: up?Colors.green:Colors.white,),
+                Text(widget.selected.valid.toString(),style: TextStyle(fontSize: 20),),
                 IconButton(onPressed: (){
+                  int changeUp=0,changeDown=0;
                   setState(() {
                     if(!down){
                       widget.selected.invalid+=1;
+                      changeDown=1;
                       widget.downVoted.add(widget.selected.problemId);
                       down=true;
                       if(up){
                         widget.selected.valid-=1;
+                        changeUp=-1;
                         widget.upVoted.remove(widget.selected.problemId);
                         up=false;
                       }
                     }else{
+                      changeDown=-1;
                       widget.selected.invalid-=1;
                       widget.downVoted.remove(widget.selected.problemId);
                       down=false;
                     }
                   });
-                  updateProblem(widget.selected);
-                }, icon: Icon(Icons.remove),color: down?Colors.red:Colors.white,),
-                Text(widget.selected.invalid.toString(),style: TextStyle(fontSize: 10),),
+                  updateProblem(widget.selected,changeUp,changeDown);
+                }, icon: Icon(Icons.remove),iconSize: 40,color: down?Colors.red:Colors.white,),
+                Text(widget.selected.invalid.toString(),style: TextStyle(fontSize: 20),),
                 if(widget.mod)IconButton(onPressed: (){}, icon: Icon(Icons.delete,color: Colors.red,))
               ],
             )

@@ -46,7 +46,7 @@ class _ProblemState extends State<Problem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Text(widget.prob.description,
+                Text(widget.prob.summary,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 24),),
                 Divider(thickness: 1,color: Colors.grey),

@@ -60,17 +60,30 @@ String createStatus(Map<String, dynamic> json) {
   return json["status"];
 }
 
-Future<List<ProblemObj>?> getProblemsList(String location) async {
+Future<List<ProblemObj>?> getProblemsList(int type,String location) async {
   List<ProblemObj>? fin;
+  String endpt="";
+  if(type==0)
+    endpt="http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/problems";
+  else if(type==1)
+    endpt="http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/problems/state/"+location;
+  else
+    endpt="http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/problems/city/"+location;
+
   await http.get(
-    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/problems'),
+      Uri.parse(endpt),
     headers: <String, String>{
       'Content-Type': 'application/json',
     },
 
   ).then((dynamic res) {
-    if (res.statusCode==200) {
-     fin = getProblemList(jsonDecode(res.body));
+    try {
+      if (res.statusCode == 200) {
+        fin = getProblemList(jsonDecode(res.body));
+      }
+    }
+    catch(e){
+      fin=[];
     }
   });
   return fin;
@@ -84,7 +97,7 @@ List<ProblemObj> getProblemList(dynamic dict){
   return fin;
 
 }
-void updateProblem(ProblemObj prob) async{
+void updateProblem(ProblemObj prob,int changeUp,int changeDown) async{
   bool resp=false;
   await http.put(
     Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/update/'+prob.problemId.toString()),
@@ -98,8 +111,8 @@ void updateProblem(ProblemObj prob) async{
         "City": prob.location!.city.toString(),
         "State": prob.location!.state.toString()
       },
-      "upvote_count": prob.valid,
-      "downvote_count": prob.invalid,
+      "upvote_count": changeUp,
+      "downvote_count": changeDown,
       "severity": prob.severity,
       "picture_url": prob.url,
       "user": prob.userId
@@ -126,6 +139,7 @@ Future<String> createProblem(ProblemObj prob) async {
         "City": prob.location!.city.toString(),
         "State": prob.location!.state.toString()
       },
+      "summary":prob.summary,
       "upvote_count": prob.valid,
       "downvote_count": prob.invalid,
       "severity": prob.severity,

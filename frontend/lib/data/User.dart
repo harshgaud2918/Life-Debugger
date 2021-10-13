@@ -2,7 +2,7 @@ class User{
   int userId;
   String name;
   String email;
-  String profilePicURL="https://cdn141.picsart.com/279537722049211.png?r1024x1024";
+  String profilePicURL= "https://drive.google.com/uc?export=view&id=1edwpQvH_JURwGsArCc8NyPEe8EzdpzvQ";
   String phoneNumber;
   String password="";
   List<int> upVoteList=[];

@@ -58,9 +58,7 @@ void comingSoon(BuildContext context){
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("Coming Soon! Hopefully ..."),
-              SizedBox(height: 20,),
-              Flexible(child: Image.network('https://starecat.com/content/wp-content/uploads/my-code-dog-standing-on-cans-indian-guys-on-youtube-stack-overflow-luck-online-forums-from-2008.jpg'))
+              Flexible(child: Image.network("https://drive.google.com/uc?export=view&id=1HxUXxtbsqV93zijewUxGa808XQEjGOoL"))
             ],
           ),
         );

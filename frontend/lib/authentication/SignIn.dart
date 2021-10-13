@@ -87,7 +87,7 @@ class _SignInState extends State<SignIn> {
                       loading = true;
                     });
                     User? curr=await fetchUser(email,password);
-                    List<ProblemObj>? list= await getProblemsList("all");
+                    List<ProblemObj>? list= await getProblemsList(0,"all");
                     setState(() {
                       loading=false;
                       if(list!=null && curr!=null) {

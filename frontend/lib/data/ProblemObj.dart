@@ -31,7 +31,7 @@ class ProblemObj{
   factory ProblemObj.fromJson(Map<String, dynamic> json) {
     return ProblemObj(
       problemId: json['id'],
-      summary: " ",
+      summary: json['summary'],
       description: json['description'],
       location: LocationData.fromAPIJson(json['location']),
       valid: json['upvote_count'],

@@ -122,7 +122,7 @@ class _RegisterState extends State<Register> {
                       setState(() {
                         loading = true;
                       });
-                      List<ProblemObj>? list= await getProblemsList("all");
+                      List<ProblemObj>? list= await getProblemsList(0,"all");
                       User nw=User(userId: 5, name: name, email: email, phoneNumber: phoneNumber,password: password,mod: true,upVoteList: [],downVoteList: []);
                       String resp=await createUser(nw);
                       setState(() {

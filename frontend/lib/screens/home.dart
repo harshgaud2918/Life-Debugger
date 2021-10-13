@@ -15,6 +15,8 @@ class HomeScreen extends StatefulWidget {
   final title;
   User currentUser;
   List<ProblemObj> pList;
+  int locType=0;
+  String locSort="all";
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -77,11 +79,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   if(loc!=null){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LocSettings(list: widget.pList,loc: loc,)),
+                      MaterialPageRoute(builder: (context) => LocSettings(list: widget.pList,loc: loc,locType:widget.locType,)),
                     ).then((value){setState(() {
                       loading=false;
-                      if(value!=null)
-                        widget.pList=value;
+                      if(value!=null && value[0]!=null) {
+                        widget.pList = value[0];
+                        widget.locType=value[1];
+                        widget.locSort=value[2];
+                      }
                     });});
 
                   }else{
@@ -100,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     setState(() {
                       loading=true;
                     });
-                    List<ProblemObj>? list= await getProblemsList("all");
+                    List<ProblemObj>? list= await getProblemsList(widget.locType,widget.locSort);
                     setState(() {
                       loading=false;
                       if(list!=null){

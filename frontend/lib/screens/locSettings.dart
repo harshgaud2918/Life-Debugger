@@ -7,9 +7,10 @@ import 'package:life_debugger/widgets/ProblemList.dart';
 
 // ignore: must_be_immutable
 class LocSettings extends StatefulWidget {
-  LocSettings({Key? key,required this.list,required this.loc}) : super(key: key);
+  LocSettings({Key? key,required this.list,required this.loc,required this.locType}) : super(key: key);
   List<ProblemObj> list;
   LocationData loc;
+  int locType;
   @override
   _locSettingsState createState() => _locSettingsState();
 }
@@ -55,12 +56,23 @@ class _locSettingsState extends State<LocSettings> {
                   setState(() {
                     isLoading=true;
                   });
-                  //var listnew=null;
-                  var listnew = await getProblemsList(map[index]!);
+                  var listnew = await getProblemsList(index,map[index]!);
+                  widget.locType=index;
                   if(listnew!=null){
-                    print(listnew.length);
+                    if(listnew.length==0){
+                      setState(() {
+                        isLoading=false;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text("No problems posted in this area"),
+                          ),
+                        );
+                      });
+                    }
+                    else
                     setState(() {
-                      Navigator.pop(context,listnew);
+                      Navigator.pop(context,[listnew,widget.locType,map[index]]);
                     });
                   }else
                   setState(() {
