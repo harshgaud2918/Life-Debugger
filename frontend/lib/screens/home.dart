@@ -96,8 +96,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   }
                 }, icon: Icon(Icons.location_on)),
-                IconButton(onPressed: (){
-                    comingSoon(context);
+                IconButton(onPressed: ()async{
+                    setState(() {
+                      loading=true;
+                    });
+                    List<ProblemObj>? list= await getProblemsList("all");
+                    setState(() {
+                      loading=false;
+                      if(list!=null){
+                        widget.pList=list;
+                      }else{
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text("Some Error occurred"),
+                          ),
+                        );
+                      }
+                    });
                 }, icon: Icon(Icons.refresh)),
               ],
             )

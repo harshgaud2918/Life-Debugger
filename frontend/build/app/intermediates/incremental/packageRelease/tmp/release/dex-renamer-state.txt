@@ -1,4 +1,4 @@
-#Wed Oct 13 01:32:29 IST 2021
+#Wed Oct 13 11:50:52 IST 2021
 base.0=D\:\\dev\\Life-Debugger\\frontend\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
