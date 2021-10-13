@@ -11,12 +11,15 @@ class User(AbstractUser):
 
 class Problem(models.Model):
     description = models.TextField(null=True, blank=False)
+    summary = models.CharField(max_length=50, null=True, blank=True)
     category = models.CharField(max_length=50, null=True, blank=True)
     location = models.JSONField(null=True, blank=False,default=dict)
     upvote_count = models.IntegerField(null=False, blank=True, default=0)
     downvote_count = models.IntegerField(null=False, blank=True, default=0)
     severity = models.IntegerField(null=False, blank=True, default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    date_created = models.DateTimeField(auto_now=True,editable=False)
+    is_resolved = models.BooleanField(null=True,blank=True)
     picture_url = models.URLField(
         null=False,
         blank=True,

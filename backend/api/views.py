@@ -29,6 +29,8 @@ def api_problem(request):
         res["severity"] = request.data["severity"]
         res["user"] = request.data["user"]
         res["picture_url"] = request.data["picture_url"]
+        res["summary"] = request.data["summary"]
+        res["is_resolved"] = False
         serializer = ProblemSerializer(data=res)
         if serializer.is_valid():
             serializer.save()
