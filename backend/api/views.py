@@ -15,8 +15,7 @@ from .serializers import *
 def api_problem(request):
     # View Problem
     if request.method == "GET":
-        problems = Problem.objects.all()
-        problems.reverse()
+        problems = Problem.objects.all().order_by('-upvote_count')
         problems = ProblemSerializer(problems, many=True).data
         return Response(problems)
     # Create Problem
@@ -44,7 +43,9 @@ def api_problem(request):
 @api_view(["PUT"])
 def api_problem_update(request,id):
     problem = Problem.objects.get(id=id)    
-    res={}    
+    res={}
+    request.data["upvote_count"] += problem.upvote_count
+    request.data["downvote_count"] += problem.downvote_count
     serializer=ProblemSerializer(problem,data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -72,21 +73,7 @@ def api_problem_delete(request,id):
     
     return Response(res)
 
-@api_view(["GET"])
-def api_location_problem(request):
-    state=request.GET.get('state')
-    city=request.GET.get('city')
-    res={}
-    if(state and city):
-        problems=Problem.objects.filter(location__state=state, location__city=city)
-        data=ProblemSerializer(problems, many=True).data
-    if(state):
-        problems=Problem.objects.filter(location__state=state)
-        data=ProblemSerializer(problems, many=True).data
-    if(city):
-        problems=Problem.objects.filter(location__city=city)
-        data=ProblemSerializer(problems, many=True).data
-    return Response(data)
+
 
 
 @api_view(["POST"])
@@ -134,3 +121,34 @@ def api_create_user(request):
         res = serializer.errors
         res["message"] = "There was a problem while creating the problems"
         return Response(res, status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def api_city_problem(request,pk):
+    problems = Problem.objects.all().order_by('-upvote_count')
+    res = []
+    for problem in problems:
+        loc = problem.location
+        if "City" in loc and loc["City"] == pk:
+            res.append(problem)
+    if len(res)==0:
+        res ={}
+        res["message"] = "No Problems Found !"
+        return Response(res)
+    
+    data=ProblemSerializer(res, many=True).data
+    return Response(data)
+
+@api_view(["GET"])
+def api_state_problem(request,pk):
+    problems = Problem.objects.all().order_by('-upvote_count')
+    res = []
+    for problem in problems:
+        loc = problem.location
+        if "State" in loc and loc["State"] == pk:
+            res.append(problem)
+    if len(res)==0:
+        res ={}
+        res["message"] = "No Problems Found !"
+        return Response(res)
+    data=ProblemSerializer(res, many=True).data
+    return Response(data)
