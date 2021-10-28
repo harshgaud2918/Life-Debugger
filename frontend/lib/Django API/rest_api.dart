@@ -5,7 +5,7 @@ import 'package:life_debugger/data/ProblemObj.dart';
 import 'package:life_debugger/data/User.dart';
 import 'package:life_debugger/data/album.dart';
 
-
+String apiBase="http://ec2-3-84-12-223.compute-1.amazonaws.com:8000/api/";
 Future<LocationData?> fetchLocation() async {
   final response = await http
       .get(Uri.parse('https://freegeoip.app/json/'));
@@ -19,7 +19,7 @@ Future<LocationData?> fetchLocation() async {
 Future<User?> fetchUser(String username, String password) async {
   User? fetched;
   await http.post(
-    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/login'),
+    Uri.parse(apiBase+'login'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -39,7 +39,7 @@ Future<User?> fetchUser(String username, String password) async {
 Future<String> createUser(User newUser) async {
   String resp="failed";
     await http.post(
-    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/createuser'),
+    Uri.parse(apiBase+'createuser'),
     headers: <String, String>{
       'Content-Type': 'application/json',
     },
@@ -64,11 +64,11 @@ Future<List<ProblemObj>?> getProblemsList(int type,String location) async {
   List<ProblemObj>? fin;
   String endpt="";
   if(type==0)
-    endpt="http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/problems";
+    endpt=apiBase+"problems";
   else if(type==1)
-    endpt="http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/problems/state/"+location;
+    endpt=apiBase+"problems/state/"+location;
   else
-    endpt="http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/problems/city/"+location;
+    endpt=apiBase+"problems/city/"+location;
 
   await http.get(
       Uri.parse(endpt),
@@ -100,7 +100,7 @@ List<ProblemObj> getProblemList(dynamic dict){
 void updateProblem(ProblemObj prob,int changeUp,int changeDown) async{
   bool resp=false;
   await http.put(
-    Uri.parse('http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/update/'+prob.problemId.toString()),
+    Uri.parse(apiBase+'update/'+prob.problemId.toString()),
     headers: <String, String>{
       'Content-Type': 'application/json',
     },
@@ -128,7 +128,7 @@ void updateProblem(ProblemObj prob,int changeUp,int changeDown) async{
 Future<String> createProblem(ProblemObj prob) async {
     String status="0";
     await http.post(
-    Uri.parse("http://ec2-100-26-104-31.compute-1.amazonaws.com:8000/api/problems"),
+    Uri.parse(apiBase+"problems"),
     headers: <String, String>{
       'Content-Type': 'application/json',
     },

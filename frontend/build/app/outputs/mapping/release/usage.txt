@@ -1499,8 +1499,8 @@ io.flutter.plugin.platform.PlatformViewRegistryImpl:
     public boolean registerViewFactory(java.lang.String,io.flutter.plugin.platform.PlatformViewFactory)
 androidx.core.app.ServiceCompat$StopForegroundFlags
 androidx.loader.R$style
-kotlin.collections.ArraysKt
 kotlin.UIntArray$Iterator
+kotlin.collections.ArraysKt
 androidx.core.net.ConnectivityManagerCompat
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$compareBy$1
 kotlin.text.MatcherMatchResult$groupValues$1
