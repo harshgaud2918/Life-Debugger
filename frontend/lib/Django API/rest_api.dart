@@ -6,7 +6,7 @@ import 'package:life_debugger/data/User.dart';
 import 'package:life_debugger/data/album.dart';
 
 String apiBase="http://ec2-3-84-12-223.compute-1.amazonaws.com:8000/api/";
-Future<LocationData?> fetchLocation() async {
+/*Future<LocationData?> fetchLocation() async {
   final response = await http
       .get(Uri.parse('https://freegeoip.app/json/'));
   if (response.statusCode == 200) {
@@ -14,7 +14,17 @@ Future<LocationData?> fetchLocation() async {
   } else {
     return null;
   }
+}*/
+Future<LocationData?> fetchLocation(String pin) async {
+  final response = await http
+      .get(Uri.parse('http://www.postalpincode.in/api/pincode/'+pin));
+  if (response.statusCode == 200 && jsonDecode(response.body)["Status"]=="Success") {
+    return LocationData.fromJson(jsonDecode(response.body)["PostOffice"][0]);
+  } else {
+    return null;
+  }
 }
+
 
 Future<User?> fetchUser(String username, String password) async {
   User? fetched;

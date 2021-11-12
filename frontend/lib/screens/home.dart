@@ -11,12 +11,13 @@ import 'package:life_debugger/widgets/ProblemList.dart';
 import 'package:life_debugger/data/dummy.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key,required this.title,required this.currentUser,required this.pList}) : super(key: key);
+  HomeScreen({Key? key,required this.title,required this.currentUser,required this.pList,required this.pincode}) : super(key: key);
   final title;
   User currentUser;
   List<ProblemObj> pList;
   int locType=0;
   String locSort="all";
+  String pincode;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {
                     loading=true;
                   });
-                  LocationData? loc=await fetchLocation();
+                  LocationData? loc=await fetchLocation(this.widget.pincode);
                   if(loc!=null){
                   Navigator.push(
                     context,
@@ -75,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {
                     loading=true;
                   });
-                  LocationData? loc=await fetchLocation();
+                  LocationData? loc=await fetchLocation(this.widget.pincode);
                   if(loc!=null){
                     Navigator.push(
                       context,

@@ -6,15 +6,15 @@ class LocationData{
 
   factory LocationData.fromJson(Map<String, dynamic> json) {
     return LocationData(
-      state: json["region_name"],
-      city: json["city"],
+      state: json["State"].toString().trim(),
+      city: json["Region"].toString().trim(),
       locDat: json,
     );
   }
   factory LocationData.fromAPIJson(Map<String, dynamic> json) {
     return LocationData(
-      state: json["State"],
-      city: json["City"],
+      state: json["State"].toString().trim(),
+      city: json["City"].toString().trim(),
       locDat: json,
     );
   }

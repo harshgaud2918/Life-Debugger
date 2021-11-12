@@ -3,7 +3,10 @@ import 'package:life_debugger/authentication/Authenticate.dart';
 import 'package:life_debugger/data/User.dart';
 import 'package:life_debugger/screens/home.dart';
 
-void main() {
+import 'Django API/rest_api.dart';
+import 'data/Location.dart';
+
+void main() async{
   runApp(MyApp());
 }
 

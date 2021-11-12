@@ -18,7 +18,7 @@ class _SignInState extends State<SignIn> {
   bool loading = false;
 
   //text field state
-  String email='',password='',error='';
+  String email='',password='',error='', pincode="";
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +72,18 @@ class _SignInState extends State<SignIn> {
                 validator: (val)=>val!.length<=3?'Enter a password 3+ char long':null,
               ),
               SizedBox(height: 20,),
+
+              //TODO:Temporary pincode loc
+              TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Pincode'),
+                onChanged: (val) {
+                  setState(() {
+                    pincode= val;
+                  });
+                },
+                validator: (val) => val!.length!=6? 'Enter a valid incode' : null,
+              ),
+
               RaisedButton(
                 color: Theme.of(context).accentColor,
                 child: Text(
@@ -96,7 +108,8 @@ class _SignInState extends State<SignIn> {
                           MaterialPageRoute(builder: (context) =>
                               HomeScreen(title: "Life Debugger",
                                 currentUser: curr,
-                                pList: list,)),
+                                pList: list,
+                              pincode: pincode,)),
                         );
                       }
                       else

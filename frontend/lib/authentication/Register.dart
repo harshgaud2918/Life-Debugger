@@ -20,7 +20,7 @@ class _RegisterState extends State<Register> {
   bool loading = false;
 
   //text field state
-  String name='',email = '',phoneNumber='', password = '', error = "";
+  String name='',email = '',phoneNumber='', password = '', error = "", pincode="";
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +108,19 @@ class _RegisterState extends State<Register> {
                 SizedBox(
                   height: 20,
                 ),
+
+                //TODO:Temporary pincode loc
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'Pincode'),
+                  onChanged: (val) {
+                    setState(() {
+                      pincode= val;
+                    });
+                  },
+                  validator: (val) => val!.length!=6? 'Enter a valid incode' : null,
+                ),
+
+
                 RaisedButton(
                   color: Theme.of(context).accentColor,
                   child: Text(
@@ -133,7 +146,8 @@ class _RegisterState extends State<Register> {
                             MaterialPageRoute(builder: (context) =>
                                 HomeScreen(title: "Life Debugger",
                                   currentUser: nw,
-                                  pList: list,)),
+                                  pList: list,
+                                pincode: pincode,)),
                           );
                         }
                         else{
