@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:life_debugger/data/Location.dart';
 import 'package:life_debugger/data/ProblemObj.dart';
 import 'package:life_debugger/data/User.dart';
-import 'package:life_debugger/data/album.dart';
 
 String apiBase="http://ec2-3-84-12-223.compute-1.amazonaws.com:8000/api/";
 /*Future<LocationData?> fetchLocation() async {
