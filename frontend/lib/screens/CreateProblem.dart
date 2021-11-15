@@ -108,7 +108,6 @@ class _CreateProblemState extends State<CreateProblem> {
                         });
                         ProblemObj created=ProblemObj(problemId: 100, summary: summary, description: description,severity: severity, valid: 0, invalid: 0, location: widget.loc, userId: widget.current.userId,url: url);
                         String resp = await createProblem(created);
-                        print(resp);
                         if(resp!="0") {
                           widget.list.add(created);
                           setState(() {

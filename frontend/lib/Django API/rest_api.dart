@@ -59,6 +59,7 @@ Future<String> createUser(User newUser) async {
     }),
   ).then((dynamic response){
       if(response.statusCode==200){
+        newUser.userId=jsonDecode(response.body)["id"];
         resp="ok";
       }
   });
@@ -132,7 +133,6 @@ void updateProblem(ProblemObj prob,int changeUp,int changeDown) async{
       resp=true;
     }
   });
-  //print(resp);
 }
 Future<String> createProblem(ProblemObj prob) async {
     String status="0";

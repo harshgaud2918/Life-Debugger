@@ -2348,9 +2348,9 @@ kotlin.sequences.SequencesKt__SequenceBuilderKt$sequence$$inlined$Sequence$1
 android.support.v4.media.session.MediaControllerCompatApi23
 androidx.customview.widget.ExploreByTouchHelper
 androidx.annotation.CheckResult
-io.flutter.embedding.engine.systemchannels.PlatformChannel:
-    private static final java.lang.String TAG
 io.flutter.embedding.engine.systemchannels.PlatformViewsChannel:
+    private static final java.lang.String TAG
+io.flutter.embedding.engine.systemchannels.PlatformChannel:
     private static final java.lang.String TAG
 androidx.core.animation.AnimatorKt$addListener$4
 kotlin.Suppress
@@ -2646,12 +2646,12 @@ com.google.android.gms.common.util.MurmurHash3
 androidx.core.internal.view.SupportMenu
 androidx.core.util.LruCacheKt$lruCache$3
 kotlin.coroutines.CoroutineContextImplKt
+kotlin.ExtensionFunctionType
 kotlin.Pair:
     public static synthetic kotlin.Pair copy$default(kotlin.Pair,java.lang.Object,java.lang.Object,int,java.lang.Object)
     public final java.lang.Object getFirst()
     public final java.lang.Object getSecond()
     public final kotlin.Pair copy(java.lang.Object,java.lang.Object)
-kotlin.ExtensionFunctionType
 androidx.core.view.LayoutInflaterFactory
 kotlin.reflect.WildcardTypeImpl
 io.flutter.FlutterInjector$Builder:
@@ -4966,14 +4966,14 @@ com.google.android.gms.internal.location.zzs
 androidx.media.MediaBrowserProtocol
 com.google.android.gms.dynamic.RemoteCreator
 com.example.LifeDebugger.life_debugger.R$color
+com.google.android.gms.common.internal.SimpleClientAdapter:
+    public void <init>(android.content.Context,android.os.Looper,int,com.google.android.gms.common.api.GoogleApiClient$ConnectionCallbacks,com.google.android.gms.common.api.GoogleApiClient$OnConnectionFailedListener,com.google.android.gms.common.internal.ClientSettings,com.google.android.gms.common.api.Api$SimpleClient)
 com.google.android.gms.common.internal.ClientSettings$Builder:
     public final com.google.android.gms.common.internal.ClientSettings$Builder addRequiredScope(com.google.android.gms.common.api.Scope)
     public final com.google.android.gms.common.internal.ClientSettings$Builder setOptionalApiSettingsMap(java.util.Map)
     public final com.google.android.gms.common.internal.ClientSettings$Builder setGravityForPopups(int)
     public final com.google.android.gms.common.internal.ClientSettings$Builder setViewForPopups(android.view.View)
     public final com.google.android.gms.common.internal.ClientSettings$Builder setSignInOptions(com.google.android.gms.signin.SignInOptions)
-com.google.android.gms.common.internal.SimpleClientAdapter:
-    public void <init>(android.content.Context,android.os.Looper,int,com.google.android.gms.common.api.GoogleApiClient$ConnectionCallbacks,com.google.android.gms.common.api.GoogleApiClient$OnConnectionFailedListener,com.google.android.gms.common.internal.ClientSettings,com.google.android.gms.common.api.Api$SimpleClient)
 kotlin.jvm.internal.Intrinsics$Kotlin
 androidx.core.provider.FontsContractCompat$FontInfo
 androidx.swiperefreshlayout.widget.SwipeRefreshLayout$OnRefreshListener
